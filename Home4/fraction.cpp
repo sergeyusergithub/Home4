@@ -23,7 +23,7 @@ fraction::fraction(double real_num) {
         real_num *= 10.0;
     }
 
-    round_num = real_num * (double)num_length;
+    round_num = round(real_num * (double)num_length);
     numerator_ = round_num;
     denominator_ *= num_length; 
 
@@ -73,7 +73,7 @@ int fraction::NOD(long long a, long long b)
 
     result = NOD(b, c);
     if (result == 1) {
-        return 1;
+        return 1ll;
     }
     return result;
 }
@@ -249,15 +249,20 @@ std::ostream& operator<<(std::ostream& out, const fraction& fr_obj)
 
 
 //================================================================
-std::istream& operator>>(std::istream& in,fraction& fr_obj)
+std::istream& operator >> (std::istream& in, fraction& fr_obj)
 {
     long long numerator, denominator;
+    char separator; // разделитель дроби
     bool sign;
-    in >> numerator >> denominator;
+    in >> numerator;
+    in >> separator;
+    if (separator != '/'){
+        in.putback(separator);
+    }
+    in >> denominator;
     fr_obj.Numerator(numerator);
     fr_obj.Denominator(denominator);
-    sign = (numerator > 0 && denominator < 0 ||
-        numerator < 0 && denominator > 0) ? true : false;
+    sign = ((numerator > 0 && denominator < 0) || (numerator < 0 && denominator > 0)) ? true : false;
     fr_obj.Sign(sign);
     return in;
 }
@@ -279,14 +284,14 @@ fraction& fraction::operator=(const fraction fr_obj)
 //===============================================================
 long long fraction::int_part()
 {   
-    return (long long)Real_Number();
+    return (long long)real_number();
 }
 
 
 //===============================================================
 fraction fraction::fract_part()
 {
-    if (proper_fraction()) {
+    if (is_proper()) {
         return *this;
     }
     fraction tmp(numerator_ - int_part()*denominator_,denominator_);
@@ -307,13 +312,13 @@ fraction fraction::reverse_fract()
 
 
 //================================================================
-float fraction::Real_Number(){
+double fraction::real_number(){
    return numerator_*(1.0)/denominator_;
 }
 
 
 //================================================================
-bool fraction::proper_fraction() {
+bool fraction::is_proper() {
     return abs(numerator_) >= abs(denominator_) ? false : true;
 }
 

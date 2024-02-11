@@ -13,7 +13,7 @@ int main(){
     
     std::cout << dbl <<  " = " << f1.Numerator() << "/" << f1.Denominator() << std::endl;
 
-    std::cout << f1.Real_Number() << std::endl;
+    std::cout << f1.real_number() << std::endl;
 
     std::cout << num << "= " << f2.Numerator() << "/" << f2.Denominator() << std::endl;
     
@@ -30,15 +30,14 @@ int main(){
 
 
     std::cout << f3.Numerator() << "/" << f3.Denominator() <<
-        " = " << f3.Real_Number() << std::endl;
+        " = " << f3.real_number() << std::endl;
 
-    std::cout << f4 << " = " << f4.Real_Number() << std::endl;
+    std::cout << f4 << " = " << f4.real_number() << std::endl;
 
-    fraction f5(1,2);
+    fraction f5(3,2);
 
-   
-
-   // std::cin >> f5;
+    
+    std::cin >> f5;
 
     std::cout << f5 << std::endl;
     std::cout << f5.int_part() << std::endl;

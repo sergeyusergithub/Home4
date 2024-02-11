@@ -151,10 +151,10 @@ fraction reverse_fract();
 
 
 // метод возвращающий действительное число дроби
-float Real_Number(); 
+double real_number(); 
 
 // метод определяющий состояние правильности дроби
-bool proper_fraction(); // false - дробь не правильная
+bool is_proper(); // false - дробь не правильная
                         // true - дробь правильная
 
 
@@ -172,6 +172,7 @@ void zero_excep(long long num);
 // метод определяющий знак дроби
 bool sign_fract();
 
+// метод вычисления НОД
 int NOD(long long num1, long long num2);
 };
 
