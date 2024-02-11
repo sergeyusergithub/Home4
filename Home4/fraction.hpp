@@ -154,12 +154,14 @@ fraction reverse_fract();
 double real_number(); 
 
 // метод определяющий состояние правильности дроби
-bool is_proper(); // false - дробь не правильная
-                        // true - дробь правильная
-
+// false - дробь не правильная
+// ture - дробь правильная
+bool is_proper(); 
+                    
 
 // метод определяющий является ли дробь целым числом
 bool is_int();
+
 
 private:
 long long numerator_; // числитель

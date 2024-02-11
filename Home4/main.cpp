@@ -4,40 +4,76 @@
 int main(){
     setlocale(LC_ALL, "Russian");
     
-    double dbl = -0.75;
+    double dbl = -0.125;
     fraction f1(dbl);
 
     long long num = -3;
 
     fraction f2(num);
     
-    std::cout << dbl <<  " = " << f1.Numerator() << "/" << f1.Denominator() << std::endl;
+    std::cout << "Дробь задана вещественным числом: " <<  dbl << " = " << f1 << std::endl;
 
-    std::cout << f1.real_number() << std::endl;
+    std::cout << "Вывод дроби в виде вещественного числа: " << f1.real_number() << std::endl;
 
-    std::cout << num << "= " << f2.Numerator() << "/" << f2.Denominator() << std::endl;
+    std::cout << "Дробь задана целым числом: " << num << " = " << f2 << std::endl;
     
     fraction f3(1, 4);
-
     fraction f4;
 
-    f4 = f1 + f3;
+    std::cout << "Сложение: " << f1 << " + " << f3 << " = " << f1 + f3 << std::endl;
+    std::cout << "Умножение: " << f1 << " * " << f3 << " = " << f1 * f3 << std::endl;
 
-    f4 = -f1;
+    std::cout << "Вычитание: " << f1 << " - " << f3 << " = " << f1 - f3 << std::endl;
 
-    --f4;
+    std::cout << "Деление: " << f1 << " : " << f3 << " = " << f1/f3 << std::endl;
 
+    std::cout << "Унарный минус: " << -f1 << std::endl;
 
+    f4 = f1;
+    std::cout << "Инкремент: " << f4 << " = " << ++f1 << std::endl;
+    std::cout << "Целая и дробная части: " << f1 << " = " << f1.int_part() << "(" << f1.fract_part() << ")" << std::endl;
+    f4 = f1;
+    std::cout << "Декримент: " << f4 << " = " << --f1 << std::endl;
+    std::cout << "Целая и дробная части: " << f1 << " = " << f1.int_part() << "(" << f1.fract_part() << ")" << std::endl;
 
-    std::cout << f3.Numerator() << "/" << f3.Denominator() <<
-        " = " << f3.real_number() << std::endl;
+    if (f1.is_proper()) {
+        std::cout << f1 << "- правильная дробь" << std::endl;
+    }
+    else {
+        std::cout << f1 << "- не правильная дробь" << std::endl;
+    }
 
-    std::cout << f4 << " = " << f4.real_number() << std::endl;
+    std::cout << "Обратная дробь: (" << f1 << ")^-1 = " << f1.reverse_fract() << std::endl;
 
+    f4 = f1.reverse_fract();
+    if (f4.is_proper()) {
+        std::cout << f4 << "- правильная дробь" << std::endl;
+    }
+    else {
+        std::cout << f4 << "- не правильная дробь" << std::endl;
+    }
+
+    if (f4.is_int()) {
+        std::cout << f4 << "- дробь целое число" << std::endl;
+    }
+    else {
+        std::cout << f4 << "- дробь не целое число" << std::endl;
+    }
+
+    f4 = { 2, 2 };
+
+    if (f4.is_int()) {
+        std::cout << f4 << "- дробь целое число" << std::endl;
+    }
+    else {
+        std::cout << f4 << "- дробь не целое число" << std::endl;
+    }
+
+    
     fraction f5(3,2);
 
     
-    std::cin >> f5;
+    // std::cin >> f5;
 
     std::cout << f5 << std::endl;
     std::cout << f5.int_part() << std::endl;

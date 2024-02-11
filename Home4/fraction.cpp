@@ -3,7 +3,7 @@
 
 //===========================================================
 fraction::fraction(double real_num) {
-    int num_length = 1000; // 3 + 1 количество значимых чисел после запятой
+    long long num_length = 100000000; // 8 + 1 количество значимых чисел после запятой
     int round_num; // целая чать действительного числа
 
     // начальные значения числителя и знаменателя
@@ -61,6 +61,9 @@ int fraction::NOD(long long a, long long b)
     long long c;
     long long result;
 
+    a = abs(a);
+    b = abs(b);
+
     if (a < b) {
         std::swap(a, b);
     }
@@ -100,7 +103,14 @@ fraction operator+(const fraction& obj1, const fraction& obj2)
     fraction tmp;
     tmp.numerator_ = obj1.numerator_ * obj2.denominator_ + obj2.numerator_ * obj1.denominator_;
     tmp.denominator_ = obj1.denominator_ * obj2.denominator_;
+   
+    int div = tmp.NOD(tmp.numerator_, tmp.denominator_);
+
+    tmp.numerator_ /= div;
+    tmp.denominator_ /= div;
+
     tmp.sign_ = tmp.sign_fract();
+
     return tmp;
 }
 
@@ -128,6 +138,12 @@ fraction operator*(const fraction& obj1, const fraction& obj2)
     fraction tmp;
     tmp.numerator_ = obj1.numerator_ * obj2.numerator_;
     tmp.denominator_ = obj1.denominator_ * obj2.denominator_;
+
+    int div = tmp.NOD(tmp.numerator_, tmp.denominator_);
+
+    tmp.numerator_ /= div;
+    tmp.denominator_ /= div;
+
     tmp.sign_ = tmp.sign_fract();
     return tmp;
 }
@@ -154,6 +170,12 @@ fraction operator-(const fraction& obj1, const fraction& obj2)
     fraction tmp;
     tmp.numerator_ = obj1.numerator_ * obj2.denominator_ - obj2.numerator_ * obj1.denominator_;
     tmp.denominator_ = obj1.denominator_ * obj2.denominator_;
+
+    int div = tmp.NOD(tmp.numerator_, tmp.denominator_);
+
+    tmp.numerator_ /= div;
+    tmp.denominator_ /= div;
+
     tmp.sign_ = tmp.sign_fract();
     return tmp;
 }
@@ -182,6 +204,12 @@ fraction operator/(const fraction& obj1, const fraction& obj2)
     fraction tmp;
     tmp.numerator_ = obj1.numerator_ * obj2.denominator_;
     tmp.denominator_ = obj1.denominator_ * obj2.numerator_;
+
+    int div = tmp.NOD(tmp.numerator_, tmp.denominator_);
+
+    tmp.numerator_ /= div;
+    tmp.denominator_ /= div;
+
     tmp.sign_ = tmp.sign_fract();
     return tmp;
 }
@@ -325,7 +353,7 @@ bool fraction::is_proper() {
 
 //===============================================================
 bool fraction::is_int() {
-    return (numerator_ == denominator_) ? true : false;
+    return ((numerator_ == denominator_) || (abs(denominator_) == 1)) ? true : false;
 }
 
 
