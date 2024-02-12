@@ -4,6 +4,7 @@
 #define FRACTION_HPP
 
 #include <iostream>
+#include <string>
 
 // класс дробь
 // раз нет публичных методов get и set, то
@@ -25,12 +26,12 @@ fraction(long long num,long long deno):numerator_(num),
 }
 
 // конструктор для создания дроби из целого числа
-fraction(long long integer) :numerator_(integer), denominator_(1) {
+explicit fraction(long long integer):numerator_(integer), denominator_(1)  {
     sign_fract();
 }
 
 // конструктор для создания дроби из целого числа
-fraction(int integer) :numerator_(integer), denominator_(1) {
+explicit fraction(int integer) :numerator_(integer), denominator_(1) {
     sign_fract();
 }
 
@@ -137,7 +138,7 @@ fraction operator--();
 friend std::ostream& operator << (std::ostream& out,const fraction& fr_obj);
 
 // оператор потока ввода
-friend std::istream& operator >> (std::istream &in,const fraction& fr_obj);
+friend std::istream& operator >> (std::istream &in,fraction& fr_obj);
 
 // опеределение целой части дроби
 long long int_part();

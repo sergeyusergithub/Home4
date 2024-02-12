@@ -1,6 +1,7 @@
 ﻿#include "fraction.hpp"
 
 
+
 //===========================================================
 fraction::fraction(double real_num) {
     long long num_length = 100000000; // 8 + 1 количество значимых чисел после запятой
@@ -279,21 +280,28 @@ std::ostream& operator<<(std::ostream& out, const fraction& fr_obj)
 //================================================================
 std::istream& operator >> (std::istream& in, fraction& fr_obj)
 {
-    long long numerator, denominator;
-    char separator; // разделитель дроби
-    bool sign;
-    in >> numerator;
-    in >> separator;
-    if (separator != '/'){
-        in.putback(separator);
+    std::string str;
+   
+    std::getline(in,str,'\n');
+    int index = str.find('/');
+    if (index < str.length()){
+        try {
+            fr_obj.numerator_=  std::stoi(str);
+            fr_obj.denominator_ = std::stoi(str.substr(index + 1));
+            fr_obj.sign_ = fr_obj.sign_fract();
+        }
+        catch (std::exception ex) {
+            std::cout << ex.what() << std::endl;
+        }
+        
     }
-    in >> denominator;
-    fr_obj.Numerator(numerator);
-    fr_obj.Denominator(denominator);
-    sign = ((numerator > 0 && denominator < 0) || (numerator < 0 && denominator > 0)) ? true : false;
-    fr_obj.Sign(sign);
+    else {
+        throw - 1;
+    }
+    
     return in;
 }
+
 
 
 
@@ -322,7 +330,16 @@ fraction fraction::fract_part()
     if (is_proper()) {
         return *this;
     }
-    fraction tmp(numerator_ - int_part()*denominator_,denominator_);
+    fraction tmp;
+    if (numerator_ % denominator_ == 0) {
+        fraction tmp1(numerator_ / denominator_);
+        tmp = tmp1;
+    }
+    else {
+        fraction tmp2(numerator_ - int_part() * denominator_, denominator_ );
+        tmp = tmp2;
+    }
+    
     return tmp;
 }
 

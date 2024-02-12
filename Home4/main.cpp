@@ -72,19 +72,16 @@ int main(){
     
     fraction f5(3,2);
 
+    std::cout << "Введите дробь: (пример: 1/6).\n";
+    std::cin >> f5;
+
+   std::cout << "Целая часть дроби: " << f5.int_part() << std::endl;
+    std::cout << "Дробная часть дроби: " << f5.fract_part() << std::endl;
+
+    std::cout << "Инвертированная дробь: " << f5.reverse_fract() << std::endl;
+
+
     
-    // std::cin >> f5;
-
-    std::cout << f5 << std::endl;
-    std::cout << f5.int_part() << std::endl;
-    std::cout << f5.fract_part() << std::endl;
-
-    std::cout << f5.reverse_fract() << std::endl;
-
-
-
-
-
     // проверка если дробь создается с 0 знаминателем, то бросается исключение
     try {
         fraction f3(1, 0);
